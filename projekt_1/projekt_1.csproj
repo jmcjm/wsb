@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="inputLibrary">
+      <HintPath>..\inputLibrary\bin\Debug\net7.0\inputLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
