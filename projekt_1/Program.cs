@@ -49,14 +49,14 @@ namespace projekt_1
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine
                     (" {0} | {1} | {2} \n" +
-                     "-----------\n" +
+                     "-----------\n" +
                      " {3} | {4} | {5} \n" +
                      "-----------\n" +
                      " {6} | {7} | {8} ",
                      cords[0, 0], cords[0, 1], cords[0, 2],
                      cords[1, 0], cords[1, 1], cords[1, 2],
                      cords[2, 0], cords[2, 1], cords[2, 2]);
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
                 if (win_checking(cords) == 1)
                 {
                     if (x_or_o % 2 == 0)
