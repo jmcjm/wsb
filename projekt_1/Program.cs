@@ -40,8 +40,6 @@ namespace projekt_1
             {
                 cords[i] = ' ';
             }
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Aby przerwać grę wpisz 0 jako miejsce pionowe (postęp zostanie utracony)");
             while (true)
             {
@@ -67,7 +65,7 @@ namespace projekt_1
                          cords[3], cords[4], cords[5],
                          cords[6], cords[7], cords[8]);
                 }
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
                 if (win_checking(cords) == 1)
                 {
                     if (x_or_o % 2 == 0)
