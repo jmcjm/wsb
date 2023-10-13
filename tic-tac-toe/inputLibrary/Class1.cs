@@ -12,7 +12,8 @@ namespace inputLibrary
                 try
                 {
                     var = int.Parse(Console.ReadLine());
-                    break;
+                    if (var != null)
+                        break;
                 }
                 catch (Exception)
                 {
@@ -30,6 +31,27 @@ namespace inputLibrary
                 if (var <= max && var >= min)
                     break;
                 Console.Write("Wprowadź liczbę z odpowiedniego przedziału: ");
+            }
+            return var;
+        }
+    }
+    public class String
+    {
+        public static string string_input()
+        {
+            string var;
+            while (true)
+            {
+                try
+                {
+                    var = Console.ReadLine();
+                    if (var != null)
+                        break;
+                }
+                catch (Exception)
+                {
+                    Console.Write("Nieodpowiedni znak!");
+                }
             }
             return var;
         }

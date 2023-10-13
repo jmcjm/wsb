@@ -6,7 +6,34 @@ namespace projekt_1
 {
     internal class Program
     {
-        static void main_menu()
+        class Player
+        {
+            public string Name { get; set; }
+            public int won { get; set; }
+            public int lost { get; set; }
+            public Player(string name, int won, int lost) 
+            { 
+                this.Name = name;
+                this.won = won;
+                this.lost = lost;
+            }
+        }
+        static Player add_players(int players_num)
+        {
+            if (players_num == 0)
+            {
+                players_num++;
+                add_player(players_num);
+            }
+            return 
+        }
+        static Player add_player(int players_num)
+        {
+            Console.Write("Podaj nick gracza nr");
+            Player player1 = new Player(inputLibrary.String.string_input(), 0, 0);
+            return player1;
+        }
+        static void main_menu(int players_num)
         {
             int choose;
             Console.WriteLine("Menu:");
@@ -19,7 +46,7 @@ namespace projekt_1
             {
                 case 1:
                     Console.Clear();
-                    game();
+                    game(players_num);
                     break;
                 case 2:
                     Console.Clear();
@@ -32,15 +59,16 @@ namespace projekt_1
                     break;
             }
         }
-        static void game()
+        static void game(int players_num)
         {
+            add_players(players_num);
             char[] cords = new char[9];
             int x_or_o = 0;
             for (int i = 0; i < cords.GetLength(0); i++)
             {
                 cords[i] = ' ';
             }
-            Console.WriteLine("Aby przerwać grę wpisz 0 jako miejsce pionowe (postęp zostanie utracony)");
+            Console.WriteLine("Aby przerwać grę wybierz pozycję 0 (postęp zostanie utracony!)");
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -69,9 +97,17 @@ namespace projekt_1
                 if (win_checking(cords) == 1)
                 {
                     if (x_or_o % 2 == 0)
+                    {
                         Console.WriteLine("Wygrał gracz O!");
+                        player2.won = +1;
+                        player1.lost = +1;
+                    }
                     else
+                    {
                         Console.WriteLine("Wygrał gracz X!");
+                        player1.won = +1;
+                        player2.lost = +1;
+                    }
                     Console.WriteLine("Naciśnij dowolny klawisz aby powrócić do menu...");
                     Console.ReadKey();
                     break;
@@ -83,16 +119,17 @@ namespace projekt_1
                     break;
                 }
                 else if (x_or_o % 2 == 0)
-                    next_move(cords, 'X');
+                    next_move(cords, 'X', player1);
                 else
-                    next_move(cords, 'O');
+                    next_move(cords, 'O', player2);
                 x_or_o++;
                 Console.Clear();
             }
         }
-        static char[] next_move(char[] cords, char x_o)
+        static char[] next_move(char[] cords, char x_o, Player player)
         {
-            int x, y;
+            Console.WriteLine("Teraz ruch {0}", player);
+            int x;
             while (true)
             {
                 Console.Write("Wybierz miejsce {0}: ", x_o);
@@ -164,11 +201,12 @@ namespace projekt_1
         }
         static void Main()
         {
+            int players_num = 0;
             Console.WriteLine("Gra kółko i krzyżyk");
             while (true)
             {
                 Console.Clear();
-                main_menu();
+                main_menu(players_num);
                 Console.Clear();
             }
         }

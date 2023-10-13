@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zDIo9pOadvHFRSbGI39F9kCK+dzG4gaB2/6V63lopFbqFrVCLFpIP4dPxECXNlawr0ppWZAq3Ml0hBO8iZ71Ag==",
+  "dgSpecHash": "LKLKvtDlHCXndeF3lrNTcbiWV1GdaC9K5aXcx5HoKvk2W8kgpA6AL7Ee0jy25S7J0NfhXKQuBML4rFnxjRH0cQ==",
   "success": true,
-  "projectFilePath": "C:\\cygwin64\\home\\jmc\\wsb\\inputLibrary\\inputLibrary.csproj",
+  "projectFilePath": "C:\\cygwin64\\home\\Student\\wsb\\tic-tac-toe\\inputLibrary\\inputLibrary.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
