@@ -1,0 +1,5 @@
+C:\cygwin64\home\jmc\wsb\projekt_1\obj\Release\net7.0\projekt_1.csproj.AssemblyReference.cache
+C:\cygwin64\home\jmc\wsb\projekt_1\obj\Release\net7.0\projekt_1.GeneratedMSBuildEditorConfig.editorconfig
+C:\cygwin64\home\jmc\wsb\projekt_1\obj\Release\net7.0\projekt_1.AssemblyInfoInputs.cache
+C:\cygwin64\home\jmc\wsb\projekt_1\obj\Release\net7.0\projekt_1.AssemblyInfo.cs
+C:\cygwin64\home\jmc\wsb\projekt_1\obj\Release\net7.0\projekt_1.csproj.CoreCompileInputs.cache
