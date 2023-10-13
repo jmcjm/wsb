@@ -1,1 +1,1 @@
-WSB LECIMYYYY
+Projekty na programowanie obiektowe
