@@ -1,0 +1,14 @@
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\konstruktory.exe
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\konstruktory.deps.json
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\konstruktory.runtimeconfig.json
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\konstruktory.dll
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\konstruktory.pdb
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.GeneratedMSBuildEditorConfig.editorconfig
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.AssemblyInfoInputs.cache
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.AssemblyInfo.cs
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.csproj.CoreCompileInputs.cache
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.dll
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\refint\konstruktory.dll
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.pdb
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.genruntimeconfig.cache
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\ref\konstruktory.dll

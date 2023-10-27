@@ -74,7 +74,8 @@ namespace konstruktory
 
         }
         static void Main(string[] args)
-        {            
+        {
+            Console.Clear();
             Console.Write("Podaj markę auta: ");
             string brand = inputLibrary.String.string_input();
             Console.Write("Podaj model auta: ");
