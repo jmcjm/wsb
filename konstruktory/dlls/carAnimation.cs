@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace carAnimation
 {
-    internal class carAnimation
+    public class carAnimation
     {
         public static void animation(int duration)
         {
