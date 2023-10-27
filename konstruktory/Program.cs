@@ -20,8 +20,8 @@ namespace konstruktory
             public void Drive(double driveDistance)
             {
                 Console.WriteLine("Jadę!");
-                int sleepTime = Convert.ToInt32(driveDistance * 100);
-                carAnimation.carAnimation.animation(sleepTime);
+                int driveTime = Convert.ToInt32(Math.Round(driveDistance * 100, 0));
+                carAnimation.carAnimation.animation(driveTime);
                 Engine.working(driveDistance);
             }
             public void Refuel(int refuelAmount)
