@@ -18,10 +18,10 @@ namespace konstruktory
                 this.Model = Model;
                 this.Engine = engine;
             }
-            public void Drive(double driveDistance)
+            public void Drive(int driveDistance)
             {
                 Console.WriteLine("Jadę!");
-                int driveTime = Convert.ToInt32(myMath.Round(driveDistance * 100, 0));
+                int driveTime = driveDistance * 100;
                 carAnimation.carAnimation.animation(driveTime);
                 Engine.working(driveDistance);
             }
@@ -67,7 +67,7 @@ namespace konstruktory
                 if (choose == 3) break;
                 switch (choose)
                 {
-                    case 1: Console.Write("Podaj dystans podróży w km: "); double driveDistance = inputLibrary.Double.restricted_double_input(0, double.MaxValue); c.Drive(driveDistance); break;
+                    case 1: Console.Write("Podaj dystans podróży w km: "); int driveDistance = inputLibrary.Int.restricted_int_input(0, int.MaxValue); c.Drive(driveDistance); break;
                     case 2: Console.WriteLine("Ilość paliwa: " + k.FuelAmaount + ", pojemność baku: " + k.FuelTankCapacity); break;
                 }
                 Console.Clear();
