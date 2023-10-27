@@ -7,19 +7,6 @@
             public string Brand { get; set; }
             public string Model { get; set; }
             public Engine Engine { get; set; }
-            public Car(string brand, string model, double capacity, double fuelAmaount)
-            {
-                this.Brand = brand;
-                this.Model = model;
-                this.Engine.Capacity = capacity;
-                this.Engine.FuelAmaount = fuelAmaount;
-            }
-            public Car(string brand, string model, double capacity, double fuelAmaount, double tankCapacity):this(brand,model,capacity,fuelAmaount)
-            {
-                this.Brand = brand;
-                this.Model = model;
-                this.Engine = new Engine(capacity, fuelAmaount, tankCapacity);
-            }
             public Car (string  Brand, string Model, Engine engine)
             {
                 this.Brand = Brand;
@@ -61,22 +48,22 @@
         }
         static void Main(string[] args)
         {
-            Console.Write("Podaj pojemność silnika w L: ");
-            int engineCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            Console.Write("Podaj ilość paliwa w L: ");
-            int amaountOfFuel = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            Console.Write("Podaj pojemność baku w L: ");
-            int tankCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            Engine k = new Engine(engineCapacity, amaountOfFuel, tankCapacity);
-            Console.Write("Podaj odległość do przejechania: ");
-            int driveDistance = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            
             Console.Write("Podaj markę auta: ");
             string brand = inputLibrary.String.string_input();
             Console.Write("Podaj model auta: ");
             string model = inputLibrary.String.string_input();
+
+            Console.Write("Podaj pojemność silnika w L: ");  int engineCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+            Console.Write("Podaj ilość paliwa w L: ");  int amaountOfFuel = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+            Console.Write("Podaj pojemność baku w L: "); int tankCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+
+            Engine k = new Engine(engineCapacity, amaountOfFuel, tankCapacity);
+
+            Console.Write("Podaj odległość do przejechania: "); int driveDistance = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+
             Car c = new Car(brand, model, k);
             c.Drive(driveDistance);
+
             Console.WriteLine("Pozostało paliwa " + k.FuelAmaount);
         }
     }
