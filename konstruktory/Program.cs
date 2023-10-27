@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using System.Threading;
 using System;
+using myMath = System.Math;
 
 namespace konstruktory
 {
@@ -20,7 +21,7 @@ namespace konstruktory
             public void Drive(double driveDistance)
             {
                 Console.WriteLine("Jadę!");
-                int driveTime = Convert.ToInt32(Math.Round(driveDistance * 100, 0));
+                int driveTime = Convert.ToInt32(myMath.Round(driveDistance * 100, 0));
                 carAnimation.carAnimation.animation(driveTime);
                 Engine.working(driveDistance);
             }
