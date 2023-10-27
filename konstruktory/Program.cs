@@ -1,4 +1,6 @@
-﻿namespace konstruktory
+﻿using System.ComponentModel.Design;
+
+namespace konstruktory
 {
     internal class Program
     {
@@ -20,7 +22,12 @@
                 Thread.Sleep(sleepTime);
                 Engine.working(driveDistance);
             }
-
+            public void Refuel(int refuelAmount)
+            {
+                if (Engine.FuelTankCapacity < Engine.FuelAmaount + refuelAmount)
+                    throw new Exception("Za dużo paliwa!");
+                Engine.FuelAmaount += refuelAmount;
+            } 
         }
         class Engine
         {
@@ -46,8 +53,16 @@
                 Console.WriteLine("Jestem!");
             }
         }
-        static void Main(string[] args)
+        static void menu()
         {
+            Console.WriteLine("Co chesz zrobić: "); int choose = inputLibrary.Int.restricted_int_input(1, 2);
+            switch (choose)
+            {
+                case 0: Console.WriteLine();
+            }
+        }
+        static void Main(string[] args)
+        {            
             Console.Write("Podaj markę auta: ");
             string brand = inputLibrary.String.string_input();
             Console.Write("Podaj model auta: ");
@@ -65,6 +80,9 @@
             c.Drive(driveDistance);
 
             Console.WriteLine("Pozostało paliwa " + k.FuelAmaount);
+
+            menu();
+
         }
     }
 }
