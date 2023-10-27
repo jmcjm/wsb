@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.Design;
+using System.Threading;
+using System;
 
 namespace konstruktory
 {
@@ -15,11 +17,11 @@ namespace konstruktory
                 this.Model = Model;
                 this.Engine = engine;
             }
-            public void Drive(int driveDistance)
+            public void Drive(double driveDistance)
             {
                 Console.WriteLine("Jadę!");
-                int sleepTime = driveDistance * 100;
-                Thread.Sleep(sleepTime);
+                int sleepTime = Convert.ToInt32(driveDistance * 100);
+                carAnimation.carAnimation.animation(sleepTime);
                 Engine.working(driveDistance);
             }
             public void Refuel(int refuelAmount)
@@ -44,7 +46,7 @@ namespace konstruktory
             {
                 this.FuelTankCapacity = tankCapacity;
             }
-            public void working(int DriveDstance)
+            public void working(double DriveDstance)
             {
                 double fuelLeft = FuelAmaount - (4 * Capacity / 100) * DriveDstance;
                 if (fuelLeft < 0)
@@ -53,13 +55,23 @@ namespace konstruktory
                 Console.WriteLine("Jestem!");
             }
         }
-        static void menu()
+        static void menu(Car c, Engine k)
         {
-            Console.WriteLine("Co chesz zrobić: "); int choose = inputLibrary.Int.restricted_int_input(1, 2);
-            switch (choose)
+            do
             {
-                case 0: Console.WriteLine();
-            }
+                Console.Clear();
+                Console.WriteLine("Ilość paliwa w baku: " + k.FuelAmaount);
+                Console.WriteLine("1. Podróż\n2. Tankowanie\n3. Wyjście");
+                Console.Write("Co chesz zrobić: "); int choose = inputLibrary.Int.restricted_int_input(1, 3);
+                if (choose == 3) break;
+                switch (choose)
+                {
+                    case 1: Console.Write("Podaj dystans podróży w km: "); double driveDistance = inputLibrary.Double.restricted_double_input(0, double.MaxValue); c.Drive(driveDistance); break;
+                    case 2: Console.WriteLine("Ilość paliwa: " + k.FuelAmaount + ", pojemność baku: " + k.FuelTankCapacity); break;
+                }
+                Console.Clear();
+            } while (true);
+
         }
         static void Main(string[] args)
         {            
@@ -68,20 +80,14 @@ namespace konstruktory
             Console.Write("Podaj model auta: ");
             string model = inputLibrary.String.string_input();
 
-            Console.Write("Podaj pojemność silnika w L: ");  int engineCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            Console.Write("Podaj ilość paliwa w L: ");  int amaountOfFuel = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            Console.Write("Podaj pojemność baku w L: "); int tankCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+            Console.Write("Podaj pojemność silnika w L: ");  double engineCapacity = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
+            Console.Write("Podaj ilość paliwa w L: "); double amaountOfFuel = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
+            Console.Write("Podaj pojemność baku w L: "); double tankCapacity = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
 
             Engine k = new Engine(engineCapacity, amaountOfFuel, tankCapacity);
-
-            Console.Write("Podaj odległość do przejechania: "); int driveDistance = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-
             Car c = new Car(brand, model, k);
-            c.Drive(driveDistance);
 
-            Console.WriteLine("Pozostało paliwa " + k.FuelAmaount);
-
-            menu();
+            menu(c, k);
 
         }
     }
