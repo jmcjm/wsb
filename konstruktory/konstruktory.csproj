@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="LinuxBuild\" />
+    <Compile Remove="LinuxBuild\**" />
+    <EmbeddedResource Remove="LinuxBuild\**" />
+    <None Remove="LinuxBuild\**" />
   </ItemGroup>
 
 </Project>
