@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.Design;
 using System.Threading;
 using System;
-using myMath = System.Math;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Net.Http.Json;
 
 namespace konstruktory
 {
@@ -9,13 +11,15 @@ namespace konstruktory
     {
         class Car
         {
+            public int Id { get; set; }
             public string Brand { get; set; }
             public string Model { get; set; }
             public double FuelAmaount { get; set; }
-            public double FuelTankCapacity { get; set; }
+            public int FuelTankCapacity { get; set; }
             public double Capacity { get; set; }
-            public Car (string  Brand, string Model, double capacity, double FuelAmaount, double tankCapacity)
+            public Car (int Id, string  Brand, string Model, double capacity, double FuelAmaount, int tankCapacity)
             {
+                this.Id = Id;
                 this.Brand = Brand;
                 this.Model = Model;
                 this.Capacity = capacity;
@@ -24,41 +28,46 @@ namespace konstruktory
             }
             public void Drive(int driveDistance)
             {
-                double fuelLeft = FuelAmaount - (4 * Capacity / 100) * driveDistance;
+                int driveTime;
+                double fuelLeft = Math.Round(FuelAmaount - (4 * Capacity / 100) * driveDistance, 2);
+                double how_far_can_you_go = Math.Round(FuelAmaount / (4 * Capacity / 100), 0);
                 if (fuelLeft < 0)
-                    throw new Exception("Za mało paliwa!");
-                int driveTime = driveDistance * 100;
+                {
+                    driveTime = Convert.ToInt32(how_far_can_you_go * 100);
+                    carAnimation.carAnimation.animation(driveTime);
+                    lost();
+                }
+                driveTime = driveDistance * 100;
                 carAnimation.carAnimation.animation(driveTime);
                 FuelAmaount = fuelLeft;
             }
-            public void Refuel(int refuelAmount)
+            public void Refuel()
             {
-                if (FuelTankCapacity < FuelAmaount + refuelAmount)
-                    throw new Exception("Za dużo paliwa!");
+                Console.Clear();
+                Console.WriteLine($"Pojemność baku: {FuelTankCapacity}L, ilość paliwa: {FuelAmaount}L");
+                Console.Write($"Ile paliwa chcesz zatankować (max {FuelTankCapacity - FuelAmaount}): ");
+                double refuelAmount = inputLibrary.Double.restricted_double_input(0, FuelTankCapacity - FuelAmaount);
                 FuelAmaount += refuelAmount;
             } 
         }
-        static void main_menu(Car[] cars)
+        static void main_menu(List<Car> carsList, string arg)
         {
-            string nick = "";
-            if (String.IsNullOrEmpty(nick))
-            {
-                Console.Clear();
-                Console.Write("Podaj swój nick: ");
-                nick = inputLibrary.String.string_input();
-            }
+            if (arg == "newGame")
+                Console.Write("Podaj swój nick: "); string nick = inputLibrary.String.string_input();
             do
             {
                 Console.Clear();
                 Console.WriteLine($"Witaj, {nick}!");
-                Console.WriteLine("1. Wybierz samochód z listy\n2. Stwórz nowy samochód");
-                Console.Write("Co chesz zrobić: "); int choose = inputLibrary.Int.restricted_int_input(1, 2);
-                switch (choose)
+                Console.WriteLine("0. Wyjście\n1. Stwórz nowy samochód");
+                int list_lenght = 1;
+                foreach (var Car in carsList)
                 {
-                    case 1: car_list(cars); break;
-                    case 2: car_make(); break;
+                    Console.WriteLine($"{Car.Id+1}. {Car.Brand} {Car.Model} {Car.Capacity}L");
                 }
-
+                Console.Write("Wybierz samochód: "); int choose = inputLibrary.Int.restricted_int_input(0, list_lenght);
+                if (choose == 0) Environment.Exit(0);
+                else if (choose == 1) car_make(carsList);
+                else game_menu(carsList[choose-1]);
             } while (true);
         }
         static void game_menu(Car c)
@@ -66,48 +75,74 @@ namespace konstruktory
             do
             {
                 Console.Clear();
-                Console.WriteLine("Ilość paliwa w baku: " + c.FuelAmaount);
-                Console.WriteLine("1. Podróż\n2. Tankowanie\n3. Wyjście");
-                Console.Write("Co chesz zrobić: "); int choose = inputLibrary.Int.restricted_int_input(1, 3);
-                if (choose == 3) break;
+                Console.WriteLine($"Auto: {c.Brand} {c.Model} {c.Capacity}L\nIlość paliwa w baku: {c.FuelAmaount}L");
+                Console.WriteLine("0. Wyjście\n1. Podróż\n2. Tankowanie");
+                Console.Write("Co chesz zrobić: "); int choose = inputLibrary.Int.restricted_int_input(0, 2);
+                if (choose == 0) break;
                 switch (choose)
                 {
                     case 1: Console.Write("Podaj dystans podróży w km: "); int driveDistance = inputLibrary.Int.restricted_int_input(0, int.MaxValue); c.Drive(driveDistance); break;
-                    case 2: Console.WriteLine("Ilość paliwa: " + c.FuelAmaount + ", pojemność baku: " + c.FuelTankCapacity); break;
+                    case 2: 
+                        Random rnd = new Random();
+                        int gasStationDistance = rnd.Next(0,50);
+                        Console.WriteLine($"Najbliższa stacja jest za {gasStationDistance}km");
+                        Console.ReadKey();
+                        c.Drive(gasStationDistance);
+                        c.Refuel(); 
+                        break;
                 }
                 Console.Clear();
             } while (true);
         }
-        static void car_make()
+        static List<Car> car_make(List<Car> carsList)
         {
             Console.Clear();
-            Console.Write("Podaj markę auta: ");
-            string brand = inputLibrary.String.string_input();
-            Console.Write("Podaj model auta: ");
-            string model = inputLibrary.String.string_input();
-
+            Console.Write("Podaj markę auta: "); string brand = inputLibrary.String.string_input();
+            Console.Write("Podaj model auta: "); string model = inputLibrary.String.string_input();
             Console.Write("Podaj pojemność silnika w litrach: "); double engineCapacity = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
             Console.Write("Podaj ilość paliwa w baku litrach: "); double amaountOfFuel = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
-            Console.Write("Podaj pojemność baku w litrach: "); double tankCapacity = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
-
-            Car c = new Car(brand, model, engineCapacity, amaountOfFuel, tankCapacity);
+            Console.Write("Podaj pojemność baku w litrach: "); int tankCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+            carsList.Add(new Car(carsList.Count+1,brand, model, engineCapacity, amaountOfFuel, tankCapacity));
+            cars_saver(carsList);
+            return carsList;
         }
-        static void car_list(Car[] cars)
+        static void lost()
         {
             Console.Clear();
-            for (int i = 0; i < cars.Length; i++)
-            {
-                if (Object.Equals(cars[i], null))
-                    break;
-                Console.WriteLine($"{i}.{cars[i].Brand}, {cars[i].Model}, {cars[i].Capacity}L");
-            }
+            Console.Write("Skończyło ci się paliwo, przegrałeś!\nNaciśnij dowolny przycisk aby powrócić do menu głownego...");
+            Console.ReadKey();
+            Main();
         }
-        static void Main(string[] args)
+        static void cars_saver(List<Car> carsList)
         {
-            Car[] cars = new Car[200];
-            cars[0] = new Car("Audi", "A3", 1.8, 40, 40);
-            cars[1] = new Car("Skoda", "Felicia", 1.1, 40, 40);
-            car_list(cars);
+            List<Car> saveList = new List<Car>(carsList);
+            saveList.RemoveAt(0);
+            saveList.RemoveAt(1);
+            string json = JsonSerializer.Serialize(saveList);
+            File.WriteAllText("userCars.json", json);
+        }
+        static List<Car> cars_reader(List<Car> carsList)
+        {
+            if (File.Exists("userCars.json"))
+            {
+                string json = File.ReadAllText("userCars.json");
+                var cars = JsonSerializer.Deserialize<List<Car>>(json);
+                Console.WriteLine(cars.Count);
+                foreach (var Car in cars)
+                {
+                    carsList.Add(Car);
+                }
+            }
+            return carsList;
+        }
+        static void Main()
+        {
+            List<Car> carsList = new List<Car>();
+            carsList.Add(new Car(1, "Audi", "A3", 1.8, 40, 40));
+            carsList.Add(new Car(2, "Skoda", "Felicia", 1.1, 40, 40));
+            cars_reader(carsList);
+            Console.Clear();
+            main_menu(carsList, "newGame");
         }
     }
 }
