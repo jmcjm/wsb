@@ -11,20 +11,18 @@ namespace konstruktory
     {
         class Car
         {
-            public int Id { get; set; }
             public string Brand { get; set; }
             public string Model { get; set; }
+            public double Capacity { get; set; }
             public double FuelAmaount { get; set; }
             public int FuelTankCapacity { get; set; }
-            public double Capacity { get; set; }
-            public Car (int Id, string  Brand, string Model, double capacity, double FuelAmaount, int tankCapacity)
+            public Car (string  Brand, string Model, double capacity, double FuelAmaount, int FuelTankCapacity)
             {
-                this.Id = Id;
                 this.Brand = Brand;
                 this.Model = Model;
                 this.Capacity = capacity;
                 this.FuelAmaount = FuelAmaount;
-                this.FuelTankCapacity = tankCapacity;
+                this.FuelTankCapacity = FuelTankCapacity;
             }
             public void Drive(int driveDistance)
             {
@@ -57,14 +55,21 @@ namespace konstruktory
             do
             {
                 Console.Clear();
-                Console.WriteLine($"Witaj, {nick}!");
-                Console.WriteLine("0. Wyjście\n1. Stwórz nowy samochód");
-                int list_lenght = 1;
+                Console.WriteLine($"Witaj, {nick}\nWybierz samochód którym chcesz się dziś przejechać!\n");
+                Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("1. Stwórz nowy samochód");
+                int list_lenght = 2;
                 foreach (var Car in carsList)
                 {
-                    Console.WriteLine($"{Car.Id+1}. {Car.Brand} {Car.Model} {Car.Capacity}L");
+                    if (list_lenght % 2 == 0)
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    else
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine($"{list_lenght}. {Car.Brand} {Car.Model} {Car.Capacity}L");
+                    list_lenght++;
                 }
-                Console.Write("Wybierz samochód: "); int choose = inputLibrary.Int.restricted_int_input(0, list_lenght);
+                Console.ForegroundColor = ConsoleColor.DarkRed; Console.WriteLine("0. Wyjście");
+                Console.ResetColor();
+                Console.Write("\nWybierz samochód: "); int choose = inputLibrary.Int.restricted_int_input(0, list_lenght);
                 if (choose == 0) Environment.Exit(0);
                 else if (choose == 1) car_make(carsList);
                 else game_menu(carsList[choose-1]);
@@ -101,8 +106,8 @@ namespace konstruktory
             Console.Write("Podaj model auta: "); string model = inputLibrary.String.string_input();
             Console.Write("Podaj pojemność silnika w litrach: "); double engineCapacity = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
             Console.Write("Podaj ilość paliwa w baku litrach: "); double amaountOfFuel = inputLibrary.Double.restricted_double_input(0, double.MaxValue);
-            Console.Write("Podaj pojemność baku w litrach: "); int tankCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
-            carsList.Add(new Car(carsList.Count+1,brand, model, engineCapacity, amaountOfFuel, tankCapacity));
+            Console.Write("Podaj pojemność baku w litrach: "); int FuelTankCapacity = inputLibrary.Int.restricted_int_input(0, int.MaxValue);
+            carsList.Add(new Car(brand, model, engineCapacity, amaountOfFuel, FuelTankCapacity));
             cars_saver(carsList);
             return carsList;
         }
@@ -117,7 +122,7 @@ namespace konstruktory
         {
             List<Car> saveList = new List<Car>(carsList);
             saveList.RemoveAt(0);
-            saveList.RemoveAt(1);
+            saveList.RemoveAt(0);
             string json = JsonSerializer.Serialize(saveList);
             File.WriteAllText("userCars.json", json);
         }
@@ -127,7 +132,6 @@ namespace konstruktory
             {
                 string json = File.ReadAllText("userCars.json");
                 var cars = JsonSerializer.Deserialize<List<Car>>(json);
-                Console.WriteLine(cars.Count);
                 foreach (var Car in cars)
                 {
                     carsList.Add(Car);
@@ -138,8 +142,8 @@ namespace konstruktory
         static void Main()
         {
             List<Car> carsList = new List<Car>();
-            carsList.Add(new Car(1, "Audi", "A3", 1.8, 40, 40));
-            carsList.Add(new Car(2, "Skoda", "Felicia", 1.1, 40, 40));
+            carsList.Add(new Car("Audi", "A3", 1.8, 40, 40));
+            carsList.Add(new Car("Skoda", "Felicia", 1.1, 40, 40));
             cars_reader(carsList);
             Console.Clear();
             main_menu(carsList, "newGame");
