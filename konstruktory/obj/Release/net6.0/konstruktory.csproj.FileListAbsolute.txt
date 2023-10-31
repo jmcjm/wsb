@@ -12,3 +12,8 @@ C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\refint\konstruktory.dll
 C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.pdb
 C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.genruntimeconfig.cache
 C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\ref\konstruktory.dll
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.csproj.AssemblyReference.cache
+C:\cygwin64\home\jmc\wsb\konstruktory\obj\Release\net6.0\konstruktory.csproj.CopyComplete
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\System.Text.Encodings.Web.dll
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\System.Text.Json.dll
+C:\cygwin64\home\jmc\wsb\konstruktory\bin\Release\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
